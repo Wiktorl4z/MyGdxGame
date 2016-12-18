@@ -35,6 +35,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		gameObject1 = new GameObject(texture);
 		gameObject1.x = 50;
 		gameObject1.y = 50;
+		camera.position.set(gameObject1.x + gameObject1.width/2,gameObject1.y + gameObject1.width/2, 0);
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private void update() {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined); // connecting camera with batch
-		camera.position.set(gameObject1.x + gameObject1.width/2,gameObject1.y + gameObject1.width/2, 0);
+
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
 			camera.zoom += 0.02f;
@@ -60,24 +61,24 @@ public class MyGdxGame extends ApplicationAdapter {
 			camera.zoom -= 0.02f;
 		}
         if (Gdx.input.isKeyPressed(Input.Keys.A)){
-			gameObject1.x -= 10 * Gdx.graphics.getDeltaTime();
+			gameObject1.x -= 100 * Gdx.graphics.getDeltaTime();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.D));
+		if (Gdx.input.isKeyPressed(Input.Keys.D))
 		{
-			gameObject1.x += 10 * Gdx.graphics.getDeltaTime();
+			gameObject1.x += 100 * Gdx.graphics.getDeltaTime();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.W));
+		if (Gdx.input.isKeyPressed(Input.Keys.W))
 		{
-			gameObject1.y += 10 * Gdx.graphics.getDeltaTime();
+			gameObject1.y += 100 * Gdx.graphics.getDeltaTime();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.S));
+		if (Gdx.input.isKeyPressed(Input.Keys.S))
 		{
-			gameObject1.y -= 10 * Gdx.graphics.getDeltaTime();
+			gameObject1.y -= 100 * Gdx.graphics.getDeltaTime();
 		}
 
 		timerHelper += Gdx.graphics.getDeltaTime();
 		if (timerHelper > 0.02f) {
-			camera.rotate(0.20f);
+		//	camera.rotate(-0.80f);
 			timerHelper = 0;
 		}
     }
