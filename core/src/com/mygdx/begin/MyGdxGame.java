@@ -31,11 +31,21 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		texture = new Texture("libgdx.png");
 		font = new BitmapFont();
-		font.setColor(Color.BLACK);
+		font.setColor(Color.GREEN);
 		gameObject1 = new GameObject(texture);
 		gameObject1.x = 50;
 		gameObject1.y = 50;
+		gameObject1.width = gameObject1.getTexture().getWidth();
+		gameObject1.height = gameObject1.getTexture().getHeight();
 		camera.position.set(gameObject1.x + gameObject1.width/2,gameObject1.y + gameObject1.width/2, 0);
+
+		gameObject2 = new GameObject(texture);
+		gameObject2.x = 400;
+		gameObject2.y = 400;
+		gameObject2.width = gameObject2.getTexture().getWidth();
+		gameObject2.height = gameObject2.getTexture().getHeight();
+
+
 	}
 
 	@Override
@@ -46,12 +56,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(gameObject1.getTexture(), gameObject1.x, gameObject1.y);
+		batch.draw(gameObject2.getTexture(), gameObject2.x, gameObject2.y);
 		batch.end();
 	}
 
     private void update() {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined); // connecting camera with batch
+		camera.position.set(gameObject1.x + gameObject1.width/2, gameObject1.y + gameObject1.height/2, 0);
 
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
@@ -61,19 +73,25 @@ public class MyGdxGame extends ApplicationAdapter {
 			camera.zoom -= 0.02f;
 		}
         if (Gdx.input.isKeyPressed(Input.Keys.A)){
-			gameObject1.x -= 100 * Gdx.graphics.getDeltaTime();
+			gameObject1.x -= 500 * Gdx.graphics.getDeltaTime();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.D))
 		{
-			gameObject1.x += 100 * Gdx.graphics.getDeltaTime();
+			gameObject1.x += 500 * Gdx.graphics.getDeltaTime();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.W))
 		{
-			gameObject1.y += 100 * Gdx.graphics.getDeltaTime();
+			gameObject1.y += 500 * Gdx.graphics.getDeltaTime();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.S))
 		{
-			gameObject1.y -= 100 * Gdx.graphics.getDeltaTime();
+			gameObject1.y -= 500 * Gdx.graphics.getDeltaTime();
+		}
+		if (gameObject1.overlaps(gameObject2))
+		{
+			music.play();
+			gameObject1.x = 0;
+			gameObject1.y = 0;
 		}
 
 		timerHelper += Gdx.graphics.getDeltaTime();
